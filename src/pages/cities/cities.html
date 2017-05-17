@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="page-header">
+        <h1>All Cities</h1>
+    </div>
+    <div class="list-group">
+        <a href="#" ng-repeat="city in cities" class="list-group-item">
+            {{city.name}}
+            <span class="badge">{{city.persons.length}}</span>
+        </a>
+    </div>
+</div>

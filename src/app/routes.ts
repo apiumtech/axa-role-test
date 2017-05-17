@@ -4,6 +4,9 @@ export function config($routeProvider: ng.route.IRouteProvider): void {
         .when("/", {
             template: "Hello friends"
         })
+        .when("/cities", {
+            template: "<page-cities></page-cities>"
+        })
         .when("/about", {
             template: "<page-about></page-about>"
         });
