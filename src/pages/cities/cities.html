@@ -3,7 +3,7 @@
         <h1>All Cities</h1>
     </div>
     <div class="list-group">
-        <a href="#" ng-repeat="city in cities" class="list-group-item">
+        <a href="#/city/{{city.id}}" ng-repeat="city in cities" class="list-group-item">
             {{city.name}}
             <span class="badge">{{city.persons.length}}</span>
         </a>

@@ -4,6 +4,7 @@ import {City} from "../models/City";
 import IPromise = angular.IPromise;
 import {ILocalStorageService} from "./ILocalStorageService";
 export class CityService implements ICityService {
+
   public static $inject: Array<string> = ["$http", "$q", "ILocalStorageService"];
 
   constructor(public $http: ng.IHttpService,
@@ -16,7 +17,37 @@ export class CityService implements ICityService {
       (error)=> this.errorGetAllCities(error))
   }
 
-  private successGetAllCities(response: string){
+  public getCityById(id: number): IPromise<City> {
+    return this.getJsonCities().then(
+      (data)=> this.successGetCityById(data, id),
+      (error)=> this.errorGetCityById(error, id))
+  };
+
+  private successGetCityById(response: string, id: number): City{
+    let cities = this.successGetAllCities(response);
+    let city: City = null;
+    for(let index = 0; index < cities.length; index++){
+      if(cities[index] && cities[index].id == id){
+        city = cities[index];
+        break;
+      }
+    }
+    return city;
+  }
+
+  private errorGetCityById(error: string, id: number): City{
+    let cities = this.getCitiesOfLocaleStorage();
+    let city: City = null;
+    for(let index = 0; index < cities.length; index++){
+      if(cities[index] && cities[index].id == id){
+        city = cities[index];
+        break;
+      }
+    }
+    return city;
+  }
+
+  private successGetAllCities(response: string): Array<City>{
     let cities = this.parseJsonCities(response);
     this.setCitiesToLocaleStorage(cities);
     return cities;
@@ -29,14 +60,14 @@ export class CityService implements ICityService {
 
   private parseJsonCities(response: string): Array<City>{
       let cities: Array<City> = [];
-      Object.keys(response).forEach(key => {
+      Object.keys(response).forEach((key, index) => {
         let persons: Array<Person> = [];
         if (response[key] && response[key].length > 0) {
           response[key].forEach((person) => {
             persons.push(new Person(person));
           })
         }
-        cities.push(new City({name: key, persons: persons}));
+        cities.push(new City({id: index, name: key, persons: persons}));
       });
 
       return cities
