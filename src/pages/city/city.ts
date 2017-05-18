@@ -17,8 +17,12 @@ export class PageCityController {
               public $routeParams: any,
               public cityService: ICityService) {
 
-    this.id = $routeParams.id;
-    $scope.table ={
+    this.onInit();
+  }
+
+  onInit(){
+    this.id = this.$routeParams.id;
+    this.$scope.table ={
       sortType: '',
       sortReverse: false,
       searchFish: '',
@@ -36,7 +40,7 @@ export class PageCityController {
     this.initInfiniteScroll();
 
     if(this.id) {
-      cityService.getCityById(this.id).then(
+      this.cityService.getCityById(this.id).then(
         (data) => this.successAllCities(data),
         (error) => this.errorAllCities(error));
     }
@@ -59,11 +63,9 @@ export class PageCityController {
           header.class = (header.field === tableHeader.field) ? ((this.$scope.table.sortReverse) ? "sorting_desc" : "sorting_asc") : "sorting";
         }
       });
-      console.log(this.$scope.table.sortType);
     }
   }
   onKeyupSearch($event){
-    console.log("onKeyupSearch");
     this.initInfiniteScroll();
   }
 
@@ -71,7 +73,6 @@ export class PageCityController {
     if(this.$scope.city && this.$scope.limitToElements < this.$scope.city.persons.length) {
       this.$scope.currentPage += 1;
       this.$scope.limitToElements = this.$scope.currentPage * 20;
-      console.log("infiniteScroll", this.$scope.currentPage);
     }
   }
 

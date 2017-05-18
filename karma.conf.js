@@ -25,8 +25,7 @@ module.exports = function (config) {
             }
         },
         preprocessors: {
-            'src/test.ts': ['webpack'],
-            'src/**/!(*.spec)+(.js)': ['coverage']
+            'src/test.ts': ['webpack']
         },
         webpackMiddleware: {
             stats: {

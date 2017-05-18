@@ -1,6 +1,3 @@
-/**
- * Created by ecobos on 5/16/17.
- */
 export class AppComponent implements ng.IDirective {
     public template: string = require("./app.html");
     public restrict: string = "E";

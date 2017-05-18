@@ -13,7 +13,6 @@ import {PageCitiesComponent, PageCitiesController} from "../pages/cities/cities"
 import {CityService} from "../services/CityService";
 import {LocalStorageService} from "../services/LocalStorageService";
 import {PageCityComponent, PageCityController} from "../pages/city/city";
-// each directive and filter need to be loaded like this:
 
 angular.module("app.application", ["ngRoute", "afkl.lazyImage", 'infinite-scroll'])
   .service("ICityService", CityService)
