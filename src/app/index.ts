@@ -1,5 +1,10 @@
 import * as angular from "angular";
 import "angular-route";
+import "angular-lazy-image";
+import 'jquery';
+import 'bootstrap/dist/js/bootstrap';
+import 'ng-infinite-scroll'
+
 import {config as routesConfig} from "./routes";
 
 import {PageAboutComponent} from "../pages/about/about";
@@ -10,8 +15,7 @@ import {LocalStorageService} from "../services/LocalStorageService";
 import {PageCityComponent, PageCityController} from "../pages/city/city";
 // each directive and filter need to be loaded like this:
 
-
-angular.module("app.application", ["ngRoute"])
+angular.module("app.application", ["ngRoute", "afkl.lazyImage", 'infinite-scroll'])
   .service("ICityService", CityService)
   .service("ILocalStorageService", LocalStorageService)
   .directive("appComponent", () => new AppComponent())

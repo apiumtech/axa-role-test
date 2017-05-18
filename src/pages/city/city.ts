@@ -5,7 +5,7 @@ export class PageCityComponent implements ng.IDirective {
   public restrict: string = "E";
   public replace: boolean = true;
   public controller: Function = PageCityController;
-  public controllerAs: string = 'ctrl';
+  public controllerAs: string = '$ctrl';
 }
 
 export class PageCityController {
@@ -18,26 +18,65 @@ export class PageCityController {
               public cityService: ICityService) {
 
     this.id = $routeParams.id;
-
-    $scope.sortType     = 'name'; // set the default sort type
-    $scope.sortReverse  = false;  // set the default sort order
-    $scope.searchFish   = '';     // set the default search/filter term
-
+    $scope.table ={
+      sortType: '',
+      sortReverse: false,
+      searchFish: '',
+      headers:[
+        {text: ''},
+        {field: 'name', text: 'Name', class: 'sorting'},
+        {field: 'age', text: 'Age', class: 'sorting'},
+        {field: 'hair_color', text: 'Hair color', class: 'sorting'},
+        {field: 'weight', text: 'Weight', class: 'sorting'},
+        {field: 'Height', text: 'Height', class: 'sorting'},
+        {text: 'Friends'},
+        {text: 'Professions'},
+      ]
+    };
+    this.initInfiniteScroll();
 
     if(this.id) {
       cityService.getCityById(this.id).then(
         (data) => this.successAllCities(data),
         (error) => this.errorAllCities(error));
     }
-
   }
 
   successAllCities(city: City) {
-    console.log(city);
     this.$scope.city = city;
   }
 
   errorAllCities(response) {
     console.log(response);
+  }
+
+  changeSort(tableHeader: any){
+    if(tableHeader.field) {
+      this.$scope.table.sortType = tableHeader.field;
+      this.$scope.table.sortReverse = !this.$scope.table.sortReverse;
+      this.$scope.table.headers.forEach((header)=>{
+        if(header.field) {
+          header.class = (header.field === tableHeader.field) ? ((this.$scope.table.sortReverse) ? "sorting_desc" : "sorting_asc") : "sorting";
+        }
+      });
+      console.log(this.$scope.table.sortType);
+    }
+  }
+  onKeyupSearch($event){
+    console.log("onKeyupSearch");
+    this.initInfiniteScroll();
+  }
+
+  infiniteScroll(){
+    if(this.$scope.city && this.$scope.limitToElements < this.$scope.city.persons.length) {
+      this.$scope.currentPage += 1;
+      this.$scope.limitToElements = this.$scope.currentPage * 20;
+      console.log("infiniteScroll", this.$scope.currentPage);
+    }
+  }
+
+  initInfiniteScroll(){
+    this.$scope.currentPage= 1;
+    this.$scope.limitToElements = 20;
   }
 }

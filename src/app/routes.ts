@@ -1,9 +1,6 @@
 config.$inject = ["$routeProvider"];
 export function config($routeProvider: ng.route.IRouteProvider): void {
     $routeProvider
-        .when("/", {
-            template: "Hello friends"
-        })
         .when("/cities", {
             template: "<page-cities></page-cities>"
         })
@@ -12,5 +9,6 @@ export function config($routeProvider: ng.route.IRouteProvider): void {
         })
         .when("/about", {
             template: "<page-about></page-about>"
-        });
+        })
+        .otherwise({redirectTo : '/cities'});
 }
