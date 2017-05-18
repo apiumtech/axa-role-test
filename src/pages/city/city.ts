@@ -25,12 +25,12 @@ export class PageCityController {
       headers:[
         {text: ''},
         {field: 'name', text: 'Name', class: 'sorting'},
-        {field: 'age', text: 'Age', class: 'sorting'},
-        {field: 'hair_color', text: 'Hair color', class: 'sorting'},
-        {field: 'weight', text: 'Weight', class: 'sorting'},
-        {field: 'Height', text: 'Height', class: 'sorting'},
-        {text: 'Friends'},
-        {text: 'Professions'},
+        {field: 'age', text: 'Age', class: 'sorting', extraClass: 'hidden-xs'},
+        {field: 'hair_color', text: 'Hair color', class: 'sorting', extraClass: 'hidden-xs'},
+        {field: 'weight', text: 'Weight', class: 'sorting', extraClass: 'hidden-xs'},
+        {field: 'Height', text: 'Height', class: 'sorting', extraClass: 'hidden-xs'},
+        {text: 'Friends', extraClass: 'hidden-xs'},
+        {text: 'Professions', extraClass: 'hidden-xs'},
       ]
     };
     this.initInfiniteScroll();

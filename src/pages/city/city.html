@@ -18,10 +18,9 @@
     </form>
 
     <table class="table table-bordered table-striped dataTable">
-
         <thead>
         <tr>
-            <th ng-repeat="tableHeader in table.headers" class="{{tableHeader.class}}" ng-click="$ctrl.changeSort(tableHeader)"> {{tableHeader.text}}</th>
+            <th ng-repeat="tableHeader in table.headers" class="{{tableHeader.class}} {{tableHeader.extraClass}}" ng-click="$ctrl.changeSort(tableHeader)"> {{tableHeader.text}}</th>
         </tr>
         </thead>
 
@@ -33,18 +32,18 @@
                     </div>
                 </td>
                 <td>{{ person.name }}</td>
-                <td>{{ person.age }}</td>
-                <td>{{ person.hair_color }}</td>
-                <td>{{ person.weight }}</td>
-                <td>{{ person.height }}</td>
-                <td>
+                <td class="hidden-xs">{{ person.age }}</td>
+                <td class="hidden-xs">{{ person.hair_color }}</td>
+                <td class="hidden-xs">{{ person.weight }}</td>
+                <td class="hidden-xs">{{ person.height }}</td>
+                <td class="hidden-xs">
                     <ul class="list-unstyled">
                         <li ng-repeat="friend in person.friends">
                             {{friend}}
                         </li>
                     </ul>
                 </td>
-                <td>
+                <td class="hidden-xs">
                     <ul class="list-unstyled">
                         <li ng-repeat="profession in person.professions">
                             {{profession}}
