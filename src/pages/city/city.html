@@ -26,7 +26,7 @@
 
         <tbody infinite-scroll="$ctrl.infiniteScroll()"  infinite-scroll-distance="3">
 
-        <tr ng-repeat="person in totalPersons = (city.persons | orderBy:table.sortType:table.sortReverse | filter:table.searchFish | limitTo:limitToElements)">
+        <tr ng-repeat="person in totalPersons = (city.persons | search:table.searchFish:['name', 'age', 'hair_color', 'weight', 'height', {name: 'friends'}, {name: 'professions'}]) | orderBy:table.sortType:table.sortReverse | limitTo:limitToElements">
                 <td>
                     <div class="avatar img-circle" afkl-lazy-image="{{person.thumbnail}}" class="demo-background-image"
                          afkl-lazy-image-options='{"background": true}'>
